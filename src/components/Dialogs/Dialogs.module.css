@@ -1,0 +1,32 @@
+.dialogs {
+    display: flex;
+}
+
+.dialogsItems {
+    padding: 10px;
+}
+
+.messages {
+    padding: 10px;
+    margin-top: 40px;
+    margin-left: 480px;
+}
+
+.dialogsItems .active {
+    color: #84f184;
+}
+
+.textarea textarea {
+    width: 200px;
+    height: 60px;
+}
+
+.textarea {
+    margin-left: 600px;
+}
+
+.textarea button {
+    margin-left: 50px;
+    margin-bottom: 20px;
+}
+

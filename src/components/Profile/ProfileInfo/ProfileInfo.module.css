@@ -1,0 +1,18 @@
+
+.desc {
+    padding: 10px;
+}
+
+.img {
+    width: 500px;
+    border-radius: 20px;
+}
+
+.info {
+    margin-top:20px;
+    margin-left: 300px;
+}
+
+.photoProfile {
+    width: 300px;
+}

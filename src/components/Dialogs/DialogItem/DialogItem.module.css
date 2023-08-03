@@ -1,0 +1,21 @@
+.dialog a {
+    color: #000000;
+    text-decoration: none;
+    padding: 10px;
+    display: flex;
+}
+
+.dialog a.active {
+    color: darkseagreen;
+}
+
+.avatarImg {
+    width: 70px;
+    height: 70px;
+    border-radius: 70px;
+}
+
+.nameUser {
+    margin: auto 0;
+    padding-left: 10px;
+}

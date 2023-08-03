@@ -1,0 +1,15 @@
+.app-wrapper {
+    margin: 0 auto;
+    /*widows: 1200px;*/
+}
+
+.app-wrapper-nav {
+    display: flex;
+}
+
+.app-wrapper-content {
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #bff1d5;
+    width: 1300px;
+}
