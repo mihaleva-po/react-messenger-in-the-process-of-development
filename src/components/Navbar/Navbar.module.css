@@ -1,0 +1,21 @@
+.nav {
+    background-color: #bff1d5;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.item a {
+    color: #f10989;
+    text-decoration: none;
+}
+
+.item a.active {
+    border-bottom: 2px solid #f10989;
+}
+
+.nav nav {
+    margin-bottom: 70px;
+}
+
+

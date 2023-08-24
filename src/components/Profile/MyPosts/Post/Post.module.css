@@ -1,0 +1,13 @@
+.item img {
+    width: 50px;
+    border-radius: 30px;
+}
+
+.item {
+    display: flex;
+    margin: 10px;
+}
+
+.post, .like {
+    margin: 10px;
+}
