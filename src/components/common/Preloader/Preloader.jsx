@@ -5,6 +5,7 @@ const Preloader = () => {
     return (
         <div>
             <img className="preloader" src={preloader} alt={""}/>
+
         </div>
     );
 };
