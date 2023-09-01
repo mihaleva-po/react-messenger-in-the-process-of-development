@@ -3,7 +3,6 @@ import React from "react";
 import {connect} from "react-redux";
 import {getAuthMe, setAuthUserData} from "../../redux/authReducer";
 
-
 class HeaderContainer extends React.Component {
     componentDidMount() {
         this.props.getAuthMe();

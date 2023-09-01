@@ -1,8 +1,15 @@
 import React from "react";
 import Profile from "./Profile";
-import {getProfileUser, setUserProfile} from "../../redux/profilePageReducer";
+import {
+    getProfileUser,
+    getUserStatus,
+    setUserProfile,
+    updateStatus
+} from "../../redux/profilePageReducer";
 import {connect} from 'react-redux';
 import {useParams} from "react-router-dom";
+// import {withAuthNavigate} from "../../Hoc/withAuthNavigate";
+import {compose} from "@reduxjs/toolkit";
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
@@ -17,18 +24,24 @@ const withRouter = WrappedComponent => props => {
 class ProfileContainer extends React.Component {
     componentDidMount() {
         this.props.getProfileUser(this.props.params.userId);
+        this.props.getUserStatus(this.props.params.userId);
     }
-    render () {
-        return(
-            <Profile {...this.props}  profile={this.props.profile}/>
+
+    render() {
+        return (
+            <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+            updateStatus = {this.props.updateStatus}/>
         )
     }
 }
-let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
-});
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps,
-    {setUserProfile, getProfileUser
-}) (WithUrlDataContainerComponent);
+let mapStateToProps = (state) => ({
+    profile: state.profilePage.profile,
+    status: state.profilePage.status
+});
+
+export default compose(connect(mapStateToProps,
+        {setUserProfile, getProfileUser, getUserStatus, updateStatus}),
+    withRouter,
+    // withAuthNavigate
+)(ProfileContainer);

@@ -1,6 +1,7 @@
 import {authAPI} from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA";
+const POST_AUTH_LOGIN = "POST_AUTH_LOGIN";
 
 let initialState = {
     userId: null,
@@ -18,6 +19,11 @@ const authReducer = (state = initialState, action) => {
                 isAuth: true
                 };
         }
+        case POST_AUTH_LOGIN:
+            return {
+                ...state,
+                ...action.userId
+            }
         default: {
             return state;
         }
@@ -25,6 +31,12 @@ const authReducer = (state = initialState, action) => {
 };
 
 export const setAuthUserData = (userId, login, email) => ({type: SET_USER_DATA, data: {userId, login, email}});
+
+export const postAuthUser = (userId) => {
+    return {
+        type: POST_AUTH_LOGIN, userId
+    }
+};
 
 export const getAuthMe = () => {
     return (dispatch) => {
@@ -38,5 +50,17 @@ export const getAuthMe = () => {
     }
 }
 
+export const postAuthLogin = (formData) => {
+    return (dispatch) => {
+        console.log("1");
+        authAPI.postAuthLogin(formData).then(
+            data =>
+            {if (data.resultCode === 0) {
+                let userId = data.data;
+                dispatch(postAuthUser(userId));
+            }}
+        )
+    }
+}
 
 export default authReducer;

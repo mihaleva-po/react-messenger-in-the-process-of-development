@@ -1,0 +1,15 @@
+.textarea {
+    width: 300px;
+}
+
+.error textarea {
+    border: 3px solid red;
+}
+
+.error span {
+    color: red;
+}
+
+.error {
+    display: flex;
+}

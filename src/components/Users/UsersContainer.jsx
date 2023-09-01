@@ -7,6 +7,8 @@ import {
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {withAuthNavigate} from "../../Hoc/withAuthNavigate";
+import {compose} from "@reduxjs/toolkit";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -44,8 +46,10 @@ const dataOfState = (state) => {
     };
 };
 
-export default connect(dataOfState, {
-   getUsers, setCurrentPage,
-    followThunk, unfollowThunk
-})
-(UsersContainer);
+export default compose(
+    connect(dataOfState, {
+        getUsers, setCurrentPage,
+        followThunk, unfollowThunk
+    }),
+    withAuthNavigate
+)(UsersContainer);

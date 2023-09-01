@@ -1,6 +1,5 @@
 import {
     addPost,
-    onPostChange,
 } from "../../../redux/profilePageReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
@@ -12,6 +11,6 @@ let dataOfState = (state) => {
 };
 
 const MyPostsContainer = connect(dataOfState, {
-    addPost, onPostChange})(MyPosts);
+    addPost})(MyPosts);
 
 export default MyPostsContainer;

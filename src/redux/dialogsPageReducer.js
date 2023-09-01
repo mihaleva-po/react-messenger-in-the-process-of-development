@@ -5,7 +5,6 @@ import olga from "../assets/image/dialogsAvatar/olga.jpg";
 import nata from "../assets/image/dialogsAvatar/nata.jpg";
 
 const ADD_MESSAGE = "ADD_MESSAGE";
-const UPDATE_TEXT_MESSAGE = "UPDATE_TEXT_MESSAGE";
 
 let initialState = {
     dialogs: [
@@ -22,27 +21,18 @@ let initialState = {
         {id: 4, message: "Yes"},
         {id: 5, message: "Find"},
     ],
-    newMessage: ""
 };
 
 const dialogsPageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_TEXT_MESSAGE: {
-            return {
-                ...state,
-                newMessage: action.newMessage
-            };
-        }
         case ADD_MESSAGE: {
             let newMessage = {
                 id: state.messages.length + 1,
-                message: state.newMessage
+                message: action.newMessage
             }
-            debugger;
             return {
                 ...state,
                 messages: [...state.messages, newMessage],
-                newMessage: ""
             };
         }
         default: {
@@ -51,7 +41,6 @@ const dialogsPageReducer = (state = initialState, action) => {
     }
 }
 
-export const addMessage = () => ({type: ADD_MESSAGE})
-export const onChangeMessage = (message) => ({type: UPDATE_TEXT_MESSAGE, newMessage: message})
+export const addMessage = (newMessage) => ({type: ADD_MESSAGE, newMessage})
 
 export default dialogsPageReducer;
