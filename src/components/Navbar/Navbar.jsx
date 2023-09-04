@@ -17,6 +17,11 @@ const Navbar = () => {
                     </NavLink>
                 </div>
                 <div className={cl.item}>
+                    <NavLink to="/users" className={({isActive}) => (isActive ? cl.active : '')}>
+                        Users
+                    </NavLink>
+                </div>
+                <div className={cl.item}>
                     <NavLink to="/news" className={({isActive}) => (isActive ? cl.active : '')}>
                         News
                     </NavLink>
@@ -31,13 +36,9 @@ const Navbar = () => {
                         Settings
                     </NavLink>
                 </div>
-                <div className={cl.item}>
-                    <NavLink to="/users" className={({isActive}) => (isActive ? cl.active : '')}>
-                        Users
-                    </NavLink>
-                </div>
+
             </nav>
-            < FriendsContainer />
+            < FriendsContainer/>
         </div>
     );
 }

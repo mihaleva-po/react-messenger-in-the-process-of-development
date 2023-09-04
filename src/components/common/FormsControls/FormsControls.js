@@ -2,7 +2,6 @@ import React from "react";
 import cl from "./FormsControls.module.css";
 
 const FormsControls = ({children}) => {
-    debugger;
     const hasError = children.props.touched && children.props.error;
     return (
         <div className={hasError ? cl.error : undefined}>

@@ -7,7 +7,7 @@ import {
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {withAuthNavigate} from "../../Hoc/withAuthNavigate";
+// import {withAuthNavigate} from "../../Hoc/withAuthNavigate";
 import {compose} from "@reduxjs/toolkit";
 
 class UsersContainer extends React.Component {
@@ -51,5 +51,4 @@ export default compose(
         getUsers, setCurrentPage,
         followThunk, unfollowThunk
     }),
-    withAuthNavigate
 )(UsersContainer);

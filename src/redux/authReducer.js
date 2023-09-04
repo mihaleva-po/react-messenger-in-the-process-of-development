@@ -1,7 +1,8 @@
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
+
 
 const SET_USER_DATA = "SET_USER_DATA";
-const POST_AUTH_LOGIN = "POST_AUTH_LOGIN";
 
 let initialState = {
     userId: null,
@@ -15,50 +16,55 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA: {
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
-                };
+                ...action.payload,
+            };
         }
-        case POST_AUTH_LOGIN:
-            return {
-                ...state,
-                ...action.userId
-            }
         default: {
             return state;
         }
     }
 };
 
-export const setAuthUserData = (userId, login, email) => ({type: SET_USER_DATA, data: {userId, login, email}});
-
-export const postAuthUser = (userId) => {
-    return {
-        type: POST_AUTH_LOGIN, userId
-    }
+export const setAuthUserData = (userId, login, email, isAuth) => {
+    return ({type: SET_USER_DATA, payload: {userId, login, email, isAuth}})
 };
 
-export const getAuthMe = () => {
-    return (dispatch) => {
-        authAPI.getAuthMe().then(
-            data =>
-            {if (data.resultCode === 0) {
+
+export const getAuthMe = () => (dispatch) => {
+    return authAPI.getAuthMe().then(
+        data => {
+            if (data.resultCode === 0) {
                 let {id, login, email} = data.data;
-                dispatch(setAuthUserData(id, login, email));
-            }}
+                dispatch(setAuthUserData(id, login, email, true));
+            }
+        }
+    )
+}
+
+
+export const login = (email, password, rememberMe = false) => {
+    return (dispatch) => {
+        authAPI.login(email, password, rememberMe).then(
+            data => {
+                if (data.resultCode === 0) {
+                    dispatch(getAuthMe());
+                } else {
+                    let message = data.messages.length > 0 ? data.messages : "Some error";
+                    dispatch(stopSubmit("email", {_error: message}));
+                }
+            }
         )
     }
 }
 
-export const postAuthLogin = (formData) => {
+export const logout = () => {
     return (dispatch) => {
-        console.log("1");
-        authAPI.postAuthLogin(formData).then(
-            data =>
-            {if (data.resultCode === 0) {
-                let userId = data.data;
-                dispatch(postAuthUser(userId));
-            }}
+        authAPI.logout().then(
+            data => {
+                if (data.resultCode === 0) {
+                    dispatch(setAuthUserData(null, null, null, false));
+                }
+            }
         )
     }
 }
