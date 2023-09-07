@@ -9,7 +9,8 @@ import {
 } from "../../../utils/validators/validators";
 import {TextArea} from "../../common/FormsControls/FormsControls";
 
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
+
     let postElement = props.profilePage.posts.map(p =>
         (<Post post={p.post} countLike={p.countLike} key={p.id}/>)
     );
@@ -17,17 +18,17 @@ const MyPosts = (props) => {
     let addPost = (values) => {
         props.addPost(values.myPost);
     }
-
     return (
         <div className={cl.myPost}>
             <h3>My posts </h3>
-                <MyPostForm onSubmit={addPost}/>
+            <MyPostForm onSubmit={addPost}/>
             <div className={cl.post}>
                 {postElement}
             </div>
         </div>
     );
-}
+
+})
 
 const maxLength15 = maxLengthCreator(100);
 const minLength2 = minLengthCreator(1);

@@ -4,7 +4,7 @@ import roman from "../assets/image/dialogsAvatar/roman.jpg";
 import olga from "../assets/image/dialogsAvatar/olga.jpg";
 import nata from "../assets/image/dialogsAvatar/nata.jpg";
 
-const ADD_MESSAGE = "ADD_MESSAGE";
+const ADD_MESSAGE = "dialogs/ADD_MESSAGE";
 
 let initialState = {
     dialogs: [

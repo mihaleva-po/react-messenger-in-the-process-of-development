@@ -1,18 +1,18 @@
 import React from 'react';
-import {Field, reduxForm} from "redux-form";
+import {reduxForm} from "redux-form";
 import {login} from "../../redux/authReducer";
-import {Input} from "../common/FormsControls/FormsControls";
+import {createField, Input} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, minLengthCreator, required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import cl from "./Login.module.css";
 
-const Login = (props) => {
+const Login = ({login, isAuth}) => {
     const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe);
+        login(formData.email, formData.password, formData.rememberMe);
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Navigate to={"/profile"}/>
     }
     return (
@@ -26,23 +26,21 @@ const Login = (props) => {
 const maxLength35 = maxLengthCreator(35);
 const minLength5 = minLengthCreator(5);
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder={"Login"} name={"email"} component={Input}
-                       validate={[required, maxLength35, minLength5,]}/>
-            </div>
-            <div>
-                <Field placeholder={"Password"} name={"password"} component={Input}
-                       type={"password"}
-                       validate={[required, maxLength35, minLength5,]}/>
-            </div>
-            <div>
-                <Field type={"checkbox"} name={"rememberMe"} component={Input}/> remember me
-            </div>
-            {props.error ? <div className={cl.summaryError}>
-                {props.error}
+        <form onSubmit={handleSubmit}>
+
+            {createField("Login", "email", Input, [required, maxLength35, minLength5,])}
+
+            {createField("Password", "password", Input, [required, maxLength35, minLength5,],
+                {type: "password"})}
+
+            {createField(null, "rememberMe", Input, [],
+                {type: "checkbox"}, "remember me")}
+
+
+            {error ? <div className={cl.summaryError}>
+                {error}
             </div> : undefined}
             <div>
                 <button>Login</button>
