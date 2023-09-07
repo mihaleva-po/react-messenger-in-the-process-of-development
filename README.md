@@ -1,4 +1,10 @@
-# Getting Started with Create React App
+# Authorization on the website
+
+Use the following username and password: 
+login: *test.auth@inbox.ru*
+password: *react-it-incubator*
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
