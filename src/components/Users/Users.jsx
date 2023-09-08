@@ -11,7 +11,8 @@ const Users = (props) => {
                                             unfollowThunk={props.unfollowThunk} followThunk={props.followThunk}/>)}
             </div>
 
-            <Paginator {...props}/>
+            <Paginator totalItemsCount={props.totalUsersCount}
+                       pageSize={props.pageSize} {...props} countItemPages ={5}/>
         </div>
     );
 };

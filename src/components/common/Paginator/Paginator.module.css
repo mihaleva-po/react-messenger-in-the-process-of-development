@@ -10,4 +10,28 @@
 
 .selected {
     font-weight: bold;
+    font-size: larger;
+}
+
+.numberPage {
+    font-size: large;
+
+}
+
+.selected, .numberPage {
+    padding: 20px;
+}
+
+.enable {
+
+}
+
+.disable {
+    display: none;
+}
+
+button {
+    background-color: white;
+    padding: 3px 10px;
+    border-radius: 7px;
 }
