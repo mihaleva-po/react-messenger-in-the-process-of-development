@@ -1,19 +1,32 @@
 import "./App.css";
-import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import News from "./components/News/News";
-import Setting from "./components/Setting/Setting";
-import Music from "./components/Music/Music";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/Login";
 import React from "react";
 import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/appReducer";
-import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/reduxStore";
+import {lazy} from 'react';
+import Preloader from "./components/common/Preloader/Preloader";
+import Navbar from './components/Navbar/Navbar';
+import News from "./components/News/News";
+import Setting from "./components/Setting/Setting";
+import Music from "./components/Music/Music";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import withSuspense from "./Hoc/withSuspense";
+
+
+const DialogsContainer = lazy(() =>
+    import('./components/Dialogs/DialogsContainer.jsx'));
+const DialogsContainerWithSuspense = withSuspense(DialogsContainer);
+const ProfileContainer = lazy(() =>
+    import('./components/Profile/ProfileContainer'));
+const ProfileContainerWithSuspense = withSuspense(ProfileContainer);
+const UsersContainer = lazy(() =>
+    import('./components/Users/UsersContainer'));
+const UsersContainerWithSuspense = withSuspense(UsersContainer);
+const Login = lazy(() =>
+    import('./components/Login/Login'));
+const LoginWithSuspense = withSuspense(Login);
+
 
 class App extends React.Component {
 
@@ -32,15 +45,15 @@ class App extends React.Component {
                         < Navbar/>
                         <div className="app-wrapper-content">
                             <Routes>
-                                <Route path="/profile" element={<ProfileContainer/>}>
-                                    <Route path=":userId" element={<ProfileContainer/>}/>
-                                </Route>
-                                < Route path='/dialogs' element={<DialogsContainer/>}/>
-                                < Route path='/news' element={<News/>}/>
-                                < Route path='/music' element={<Music/>}/>
-                                < Route path='/setting' element={<Setting/>}/>
-                                < Route path='/users' element={<UsersContainer/>}/>
-                                < Route path='/login' element={<Login/>}/>
+                                <Route path="/profile/:userId?" element={
+                                    <ProfileContainerWithSuspense/>
+                                }/>
+                                <Route path="/dialogs/*" element={<DialogsContainerWithSuspense/>}/>
+                                < Route path='news' element={<News/>}/>
+                                < Route path='music' element={<Music/>}/>
+                                < Route path='setting' element={<Setting/>}/>
+                                <Route path="/users/*" element={<UsersContainerWithSuspense/>}/>
+                                <Route path="/login/*" element={<LoginWithSuspense/>}/>
                             </Routes>
                         </div>
                     </div>
@@ -53,9 +66,9 @@ const mapStateToProps = (state) => ({
     initialized: state.app.initialized
 });
 
-let AppContainer =  connect(mapStateToProps, {initializeApp})(App);
+let AppContainer = connect(mapStateToProps, {initializeApp})(App);
 
-let MainApp = (props) => {
+let MainApp = () => {
     return <React.StrictMode>
         <BrowserRouter>
             <Provider store={store}>
